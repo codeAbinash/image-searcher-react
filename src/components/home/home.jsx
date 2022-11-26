@@ -77,15 +77,15 @@ export function search(searchText, updateData, data) {
         return
 
     const url = `https://api.pexels.com/v1/search?query=${searchText}&per_page=18`
-    if (localStorage.lastSearchedData) {
-        updateData(JSON.parse(localStorage.lastSearchedData))
-    }
-    else
-        fetch(url, options).then(data => data.json())
-            .then(images => {
-                let photos = images.photos
-                console.log(photos)
-                updateData(photos)
-                localStorage.lastSearchedData = JSON.stringify(photos)
-            })
+    // if (localStorage.lastSearchedData) {
+    //     updateData(JSON.parse(localStorage.lastSearchedData))
+    // }
+    // else
+    fetch(url, options).then(data => data.json())
+        .then(images => {
+            let photos = images.photos
+            console.log(photos)
+            updateData(photos)
+            localStorage.lastSearchedData = JSON.stringify(photos)
+        })
 }
