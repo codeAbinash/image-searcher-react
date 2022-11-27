@@ -1,3 +1,6 @@
+// @use '../common/layout' as ui
+@use '../common/animation' as anim;
+
 #main {
     display: block;
     margin-inline: auto;
@@ -25,18 +28,111 @@
     }
 }
 
+#downloadScreen {
+    position: fixed;
+    // inset: 0;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    transition: 200ms left;
+    background-color: #ffffffee;
+    // display: none;
+    min-height: 100vh;
+    z-index: 100;
+    padding: 15px;
+
+    .header {
+        $header-height: 50px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        height: $header-height;
+
+
+        .left,
+        .right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: inherit;
+            aspect-ratio: 1 / 1;
+        }
+
+        .center {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            p {
+                font-weight: 500;
+            }
+        }
+
+        .left {
+            height: inherit;
+
+            >img {
+                height: inherit;
+                padding: 15px;
+                @include anim.press();
+            }
+        }
+    }
+
+    >.content {
+        margin-top: 10px;
+        .imagePreview {
+            width: 100%;
+            // min-height: 200px;
+            // background-color: lime;
+            border-radius: 7px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            >img {
+                display: block;
+                max-width: 100%;
+                margin: auto;
+                border-radius: inherit;
+                object-fit: cover;
+                // min-height: 10vh;
+            }
+        }
+        >.imageTitle{
+            margin-top: .8em;
+            font-weight: 500;
+            color: #444;
+        }
+
+    }
+}
+
 #searchResults {
-    min-height: 100px;
-    margin-top: 50px;
+    margin-top: 20px;
     // background-color: lightblue;
     min-height: 70vh;
     display: flex;
     justify-content: center;
-    // align-items: center;
+    align-items: center;
     // flex-direction: column;
     flex-wrap: wrap;
     gap: 10px;
     padding-block-end: 50px;
+
+    .noResult {
+        min-height: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+            font-size: 1.2em;
+            opacity: 0.7;
+        }
+    }
 
     // color: ;
     >.image {
@@ -49,7 +145,7 @@
         align-items: center;
         border-radius: 7px;
         overflow: hidden;
-
+        @include anim.press(150,95);
         img {
             max-height: 50vh;
             object-fit: cover;
