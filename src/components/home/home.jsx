@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import arrowBack from '../../assets/images/arrow-left.svg';
+import searchIcon from '../../assets/images/magnifying-glass-solid.svg'
 import '../../styles/home/home.scss';
 import '../../styles/index.scss';
 
@@ -10,9 +11,7 @@ const options = {
     }
 }
 window.onpopstate = (e) => {
-    // e.preventDefault()
     hideDownloadScreen()
-    console.log("On Back")
 }
 export default function Home() {
     const allData = []
@@ -35,8 +34,12 @@ export default function Home() {
     }
     return (
         <div id="main">
-            <div id="searchBar" onKeyPress={ handelKeyPress } onChange={ detectEmptyInput }>
-                <input type="search" id="searchInput" placeholder='Search any image' ref={ searchInputDOM } autoFocus />
+            <div>
+                <h1 className='heading'>Search Image</h1>
+                <div id="searchBar" onKeyPress={ handelKeyPress } onChange={ detectEmptyInput }>
+                    <input type="search" id="searchInput" placeholder='Search any Image or Photograph' ref={ searchInputDOM } autoFocus />
+                    {/* <p>Search</p> */ }
+                </div>
             </div>
             <div id="downloadScreen" ref={ downloadScreen }>
                 <div className="header">
@@ -62,6 +65,7 @@ export default function Home() {
                         <a href={ currentImageData.landscape } target="_blank">landscape</a>
                         <a href={ currentImageData.tiny } target="_blank">tiny</a>
                     </div>
+                    <End/>
                 </div>
             </div>
             <div id="searchResults">
@@ -70,16 +74,21 @@ export default function Home() {
                 </div>
                 { makeLoadPageLink(data, nextPageLink, updateData, updateNextPageLink) }
             </div>
+            <FloatingButton />
+            <End />
         </div>
     )
     function makeLoadPageLink(oldData, nextPageLink, updateData, updateNextPageLink) {
-        console.log(nextPageLink)
         if (loadingNextPageState)
-            return <p className='text-center'>Loading...</p>
+            return (
+                <div id="loadMore">
+                    <p className='text-center loading'>Loading more...</p>
+                </div>
+            )
         else
             if (!nextPageLink)
                 return
-            else
+            else if(!loadingState)
                 return (
                     <div id='loadMore'>
                         <button onClick={ () => {
@@ -93,7 +102,6 @@ export default function Home() {
         fetch(nextPageLink, options).then(data => data.json())
             .then(images => {
                 let photos = images.photos
-                console.log(photos)
                 const combine = [...oldData, ...photos]
                 if (images.next_page)
                     updateNextPageLink(images.next_page)
@@ -121,7 +129,6 @@ export default function Home() {
             </div>
         else
             return (<>{ photos.map(photo => {
-                // console.log(photo);
                 return (
                     <SingleImage src={ photo.src.medium || "" }
                         key={ photo.id } bgColor={ photo.avg_color }
@@ -156,19 +163,29 @@ export default function Home() {
         // else
         fetch(url, options).then(data => data.json())
             .then(images => {
-                console.log(images)
                 let photos = images.photos
-                console.log(photos)
-                // const combine = [...data, ...photos]
-                console.log(images)
                 if (images.next_page)
                     updateNextPageLink(images.next_page)
                 else
                     updateNextPageLink(false)
                 updateData(photos)
                 updateLoadingState(false)
-                // localStorage.lastSearchedData = JSON.stringify(photos)
             })
+    }
+
+    function FloatingButton() {
+        return (
+            <div id="floatingButton" onClick={ () => { searchInputDOM.current.focus() } }>
+                <img src={ searchIcon } alt="Search" />
+            </div>
+        )
+    }
+    function End() {
+        return (
+            <div className="endDiv">
+                <p className='text-center'>Made with 💖 by <a href="https://github.com/codeAbinash/image-searcher-react">Abinash</a></p>
+            </div>
+        )
     }
 }
 
@@ -176,7 +193,6 @@ function SingleImage(props) {
     return (
         <div className="image" style={ { backgroundColor: `${props.bgColor}` } }
             onClick={ () => {
-                console.log(props)
                 singleImageClicked(
                     {
                         src: props.src,
@@ -202,7 +218,6 @@ function SingleImage(props) {
 }
 function singleImageClicked(props, updater) {
     updater(props)
-    // console.log(props)
     showDownloadScreen()
     showDownloadScreen()
 }

@@ -3,15 +3,27 @@
 @use '../common/typo';
 
 $border-radius : 8px;
+$text-color : #222;
 
 #main {
-    display: block;
     margin-inline: auto;
     padding-inline: 15px;
     max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding-bottom: 25px;
 
-    >#searchBar {
-        padding-top: 20px;
+    >div>.heading {
+        margin-top: 20px;
+        font-size: 1.5em;
+        color: #333;
+        padding-left: 5px;
+    }
+
+    >div>#searchBar {
+        padding-top: 10px;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -25,14 +37,13 @@ $border-radius : 8px;
             // color: whi;
             border: none;
             outline: none;
-            padding: 1.1em 1.2em;
+            padding: 1em 1.3em;
             font-weight: 500;
         }
     }
 }
 
 #downloadScreen {
-    $text-color : #222;
     color: $text-color;
     position: fixed;
     top: 0;
@@ -45,7 +56,6 @@ $border-radius : 8px;
     transition: 200ms left;
     overflow: auto;
     padding: 15px;
-    padding-bottom: 50px;
     // // display: none;
     // // min-height: 100vh;
     // padding: 15px;
@@ -184,7 +194,7 @@ $border-radius : 8px;
     >.images {
         margin-top: 20px;
         // background-color: lightblue;
-        min-height: 70vh;
+        min-height: 50vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -226,10 +236,54 @@ $border-radius : 8px;
             outline: none;
             background-color: #111;
             color: #fff;
-            font-size: 0.9em;
+            font-size: 0.85em;
             font-weight: 500;
             border-radius: $border-radius;
             @include anim.press(150, 95);
+        }
+
+        >.loading {
+            min-width: 50%;
+            padding: 0.9em 3em;
+            border: none;
+            outline: none;
+            // background-color: #111;
+            // color: #fff;
+            font-size: 0.85em;
+            font-weight: 500;
+            border-radius: $border-radius;
+            @include anim.press(150, 95);
+        }
+    }
+}
+
+#floatingButton {
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    background-color: #111;
+    height: 60px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    @include anim.press();
+
+    >img {
+        width: 50px;
+        padding: 15px;
+        filter: invert(1);
+    }
+}
+.endDiv{
+    padding-block: 10px;
+    p{
+        font-size: 0.8em;
+        color: #888;
+        font-weight: 500;
+        a{
+            color: cornflowerblue;
         }
     }
 }
