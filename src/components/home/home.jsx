@@ -18,14 +18,20 @@ export default function Home() {
     const allData = []
     const [data, updateData] = useState(allData);
     const [currentImageData, updateCurrentImageData] = useState({})
+    const [nextPageLink, updateNextPageLink] = useState(false)
+    const [loadingState, updateLoadingState] = useState(false)
+    const [loadingNextPageState, updateLoadingNextPageState] = useState(false)
+
     const handelKeyPress = (e) => {
-        if (e.charCode === 13) search(e, updateData, data);
+        if (e.charCode === 13) search(e, updateData, updateNextPageLink);
     }
     const downloadScreen = useRef()
     const searchInputDOM = useRef()
     const detectEmptyInput = (e) => {
-        if (e.target.value.length === 0)
+        if (e.target.value.length === 0) {
             updateData([])
+            updateNextPageLink(false)
+        }
     }
     return (
         <div id="main">
@@ -56,44 +62,114 @@ export default function Home() {
                         <a href={ currentImageData.landscape } target="_blank">landscape</a>
                         <a href={ currentImageData.tiny } target="_blank">tiny</a>
                     </div>
-
                 </div>
             </div>
             <div id="searchResults">
-                { makeData(data, updateCurrentImageData) }
+                <div className="images">
+                    { makeData(data, updateCurrentImageData) }
+                </div>
+                { makeLoadPageLink(data, nextPageLink, updateData, updateNextPageLink) }
             </div>
         </div>
     )
-}
+    function makeLoadPageLink(oldData, nextPageLink, updateData, updateNextPageLink) {
+        console.log(nextPageLink)
+        if (loadingNextPageState)
+            return <p className='text-center'>Loading...</p>
+        else
+            if (!nextPageLink)
+                return
+            else
+                return (
+                    <div id='loadMore'>
+                        <button onClick={ () => {
+                            loadNextPage(oldData, nextPageLink, updateData, updateNextPageLink)
+                            updateLoadingNextPageState(true)
+                        } }>Load more</button>
+                    </div>
+                )
+    }
+    function loadNextPage(oldData, nextPageLink, updateData, updateNextPageLink) {
+        fetch(nextPageLink, options).then(data => data.json())
+            .then(images => {
+                let photos = images.photos
+                console.log(photos)
+                const combine = [...oldData, ...photos]
+                if (images.next_page)
+                    updateNextPageLink(images.next_page)
+                else
+                    updateNextPageLink(false)
+                updateData(combine)
+                // updateLoadingState(false)
+                updateLoadingNextPageState(false)
+                // localStorage.lastSearchedData = JSON.stringify(photos)
+            })
+    }
 
-function makeData(photos, updateCurrentImageData) {
-    // let key = 0
-    if (photos.length == 0)
-        return <div className="noResult">
-            <p>Search Any Image</p>
-        </div>
-    else
-        return (<>{ photos.map(photo => {
-            // console.log(photo);
-            return (
-                <SingleImage src={ photo.src.medium || "" }
-                    key={ photo.id } bgColor={ photo.avg_color }
-                    alt={ photo.alt } title={ photo.alt }
-                    updater={ updateCurrentImageData }
-                    photographer={ photo.photographer }
-                    photographer_url={ photo.photographer_url }
-                    // Image Links
-                    medium={ photo.src.medium }
-                    original={ photo.src.original }
-                    large2x={ photo.src.large2x }
-                    large={ photo.src.large }
-                    small={ photo.src.small }
-                    portrait={ photo.src.portrait }
-                    landscape={ photo.src.landscape }
-                    tiny={ photo.src.tiny }
-                />
-            )
-        }) }</>)
+
+
+
+    function makeData(photos) {
+        // let key = 0
+        if (loadingState)
+            return <div className="noResult">
+                <p>Loading...</p>
+            </div>
+        if (photos.length == 0)
+            return <div className="noResult">
+                <p>Search any Image or Photograph</p>
+            </div>
+        else
+            return (<>{ photos.map(photo => {
+                // console.log(photo);
+                return (
+                    <SingleImage src={ photo.src.medium || "" }
+                        key={ photo.id } bgColor={ photo.avg_color }
+                        alt={ photo.alt } title={ photo.alt }
+                        updater={ updateCurrentImageData }
+                        photographer={ photo.photographer }
+                        photographer_url={ photo.photographer_url }
+                        // Image Links
+                        medium={ photo.src.medium }
+                        original={ photo.src.original }
+                        large2x={ photo.src.large2x }
+                        large={ photo.src.large }
+                        small={ photo.src.small }
+                        portrait={ photo.src.portrait }
+                        landscape={ photo.src.landscape }
+                        tiny={ photo.src.tiny }
+                    />
+                )
+            }) }
+            </>)
+    }
+    function search(e, updateData, updateNextPageLink) {
+        let searchText = e.target.value.trim()
+        if (searchText.length == 0)
+            return
+        updateLoadingState(true)
+        e.target.blur()
+        const url = `https://api.pexels.com/v1/search?query=${searchText}&per_page=18`
+        // if (localStorage.lastSearchedData) {
+        //     updateData(JSON.parse(localStorage.lastSearchedData))
+        // }
+        // else
+        fetch(url, options).then(data => data.json())
+            .then(images => {
+                console.log(images)
+                let photos = images.photos
+                console.log(photos)
+                // const combine = [...data, ...photos]
+                console.log(images)
+                if (images.next_page)
+                    updateNextPageLink(images.next_page)
+                else
+                    updateNextPageLink(false)
+                updateData(photos)
+                updateLoadingState(false)
+                // localStorage.lastSearchedData = JSON.stringify(photos)
+            })
+    }
 }
 
 function SingleImage(props) {
@@ -130,27 +206,6 @@ function singleImageClicked(props, updater) {
     showDownloadScreen()
     showDownloadScreen()
 }
-export function search(e, updateData, data) {
-    let searchText = e.target.value.trim()
-    if (searchText.length == 0)
-        return
-    e.target.blur()
-    const url = `https://api.pexels.com/v1/search?query=${searchText}&per_page=18`
-    // if (localStorage.lastSearchedData) {
-    //     updateData(JSON.parse(localStorage.lastSearchedData))
-    // }
-    // else
-    fetch(url, options).then(data => data.json())
-        .then(images => {
-            console.log(images)
-            let photos = images.photos
-            console.log(photos)
-            updateData(photos)
-            localStorage.lastSearchedData = JSON.stringify(photos)
-        })
-}
-
-
 
 
 function showDownloadScreen() {
