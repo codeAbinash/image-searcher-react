@@ -158,9 +158,9 @@ $text-color : #222;
             // background-color: lavender;
             >a {
                 background-color: #111;
-                border-radius: 0.7em;
+                border-radius: 0.9em;
                 // border-radius: 100vmax;
-                padding: 0.9em 2.7em;
+                padding: 0.9em 2.9em;
                 text-decoration: none;
                 color: #fff;
                 font-size: 0.7em;
@@ -276,13 +276,16 @@ $text-color : #222;
         filter: invert(1);
     }
 }
-.endDiv{
+
+.endDiv {
     padding-block: 10px;
-    p{
+
+    p {
         font-size: 0.8em;
         color: #888;
         font-weight: 500;
-        a{
+
+        a {
             color: cornflowerblue;
         }
     }
