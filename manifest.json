@@ -1,0 +1,89 @@
+{
+    "short_name": "Image Search",
+    "name": "Image Search",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "Image Search",
+    "theme_color": "#fff",
+    "icons": [
+        {
+            "src": "./src/assets/vite.svg",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "./src/assets/vite.svg",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "./src/assets/vite.svg",
+            "sizes": "196x196",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "./src/assets/vite.svg",
+            "type": "image/png",
+            "sizes": "358x730"
+        },
+        {
+            "src": "./src/assets/vite.svg",
+            "type": "image/jpg",
+            "sizes": "358x730"
+        },
+        {
+            "src": "./src/assets/vite.svg",
+            "type": "image/jpg",
+            "sizes": "358x730"
+        },
+        {
+            "src": "./src/assets/vite.svg",
+            "type": "image/jpg",
+            "sizes": "358x730"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "This is Shortcut 1",
+            "short_name": "Shortcut 1",
+            "description": "Detailed Description Shortcut 1",
+            "url": "./shortcut1.html",
+            "icons": [
+                {
+                    "src": "./src/assets/vite.svg",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "This is Shortcut 2",
+            "short_name": "Shortcut 2",
+            "description": "Detailed Description Shortcut 2",
+            "url": "./shortcut2.html",
+            "icons": [
+                {
+                    "src": "./src/assets/vite.svg",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "This is Shortcut 3",
+            "short_name": "Shortcut 1",
+            "description": "Detailed Description Shortcut 3",
+            "url": "./shortcut3.html",
+            "icons": [
+                {
+                    "src": "./src/assets/vite.svg",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ]
+}

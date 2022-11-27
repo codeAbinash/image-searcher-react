@@ -1,24 +1,8 @@
-import { useImperativeHandle, useReducer, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import arrowBack from '../../assets/images/arrow-left.svg';
 import '../../styles/home/home.scss';
 import '../../styles/index.scss';
-import icon from '../../assets/react.svg'
-import arrowBack from '../../assets/images/arrow-left.svg'
 
-// import { SearchBar } from './SearchBar'
-// import SearchResults from './searchResult/SearchResult'
-
-// export function SearchResults() {
-//     return (
-//         <h2>Search Results</h2>
-//     )
-// }
-
-// export function SearchBar() {
-//     const handelKeyPress = (e) => { if (e.charCode === 13) search(e.target.value); }
-//     return (
-
-//     )
-// }
 
 const options = {
     headers: {
@@ -58,7 +42,21 @@ export default function Home() {
                     <div className="imagePreview">
                         <img src={ currentImageData.src } alt={ currentImageData.title } />
                     </div>
-                    <p className='imageTitle'>{ currentImageData.title }</p>
+                    <h3 className='imageTitle'>{ currentImageData.title }</h3>
+                    <a className="by" href={ currentImageData.photographer_url } target="_blank">By { currentImageData.photographer }</a>
+                    <h4 className='downloadOptions text-center'>Download Options</h4>
+                    <div className="downloadButtons">
+                        {/* <p>{ currentImageData.medium }</p> */ }
+                        <a href={ currentImageData.original } target="_blank">original</a>
+                        <a href={ currentImageData.large2x } target="_blank">large2x</a>
+                        <a href={ currentImageData.large } target="_blank">large</a>
+                        <a href={ currentImageData.medium } target="_blank">medium</a>
+                        <a href={ currentImageData.small } target="_blank">small</a>
+                        <a href={ currentImageData.portrait } target="_blank">portrait</a>
+                        <a href={ currentImageData.landscape } target="_blank">landscape</a>
+                        <a href={ currentImageData.tiny } target="_blank">tiny</a>
+                    </div>
+
                 </div>
             </div>
             <div id="searchResults">
@@ -82,6 +80,17 @@ function makeData(photos, updateCurrentImageData) {
                     key={ photo.id } bgColor={ photo.avg_color }
                     alt={ photo.alt } title={ photo.alt }
                     updater={ updateCurrentImageData }
+                    photographer={ photo.photographer }
+                    photographer_url={ photo.photographer_url }
+                    // Image Links
+                    medium={ photo.src.medium }
+                    original={ photo.src.original }
+                    large2x={ photo.src.large2x }
+                    large={ photo.src.large }
+                    small={ photo.src.small }
+                    portrait={ photo.src.portrait }
+                    landscape={ photo.src.landscape }
+                    tiny={ photo.src.tiny }
                 />
             )
         }) }</>)
@@ -91,10 +100,23 @@ function SingleImage(props) {
     return (
         <div className="image" style={ { backgroundColor: `${props.bgColor}` } }
             onClick={ () => {
+                console.log(props)
                 singleImageClicked(
                     {
                         src: props.src,
-                        title: props.title
+                        title: props.title,
+                        // Images
+                        original: props.original,
+                        large2x: props.large2x,
+                        large: props.large,
+                        medium: props.medium,
+                        small: props.small,
+                        portrait: props.portrait,
+                        landscape: props.landscape,
+                        tiny: props.tiny,
+                        // Photographer Details
+                        photographer: props.photographer,
+                        photographer_url: props.photographer_url,
                     },
                     props.updater)
             } }>
@@ -103,9 +125,8 @@ function SingleImage(props) {
     )
 }
 function singleImageClicked(props, updater) {
-    // updateCurrentImageData(props)
     updater(props)
-    console.log(props)
+    // console.log(props)
     showDownloadScreen()
     showDownloadScreen()
 }
@@ -114,8 +135,6 @@ export function search(e, updateData, data) {
     if (searchText.length == 0)
         return
     e.target.blur()
-    // console.log(searchInputDOM)  
-
     const url = `https://api.pexels.com/v1/search?query=${searchText}&per_page=18`
     // if (localStorage.lastSearchedData) {
     //     updateData(JSON.parse(localStorage.lastSearchedData))
@@ -123,6 +142,7 @@ export function search(e, updateData, data) {
     // else
     fetch(url, options).then(data => data.json())
         .then(images => {
+            console.log(images)
             let photos = images.photos
             console.log(photos)
             updateData(photos)

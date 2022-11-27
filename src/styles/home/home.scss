@@ -1,6 +1,6 @@
 // @use '../common/layout' as ui
 @use '../common/animation' as anim;
-
+@use '../common/typo';
 #main {
     display: block;
     margin-inline: auto;
@@ -18,7 +18,7 @@
             width: 100%;
             font-size: 0.9em;
             background-color: #eee;
-            border-radius: 7px;
+            border-radius: 8px;
             // color: whi;
             border: none;
             outline: none;
@@ -29,20 +29,26 @@
 }
 
 #downloadScreen {
+    $text-color : #222;
+    color: $text-color;
     position: fixed;
-    // inset: 0;
     top: 0;
     left: 100%;
     width: 100%;
-    transition: 200ms left;
-    background-color: #ffffffee;
-    // display: none;
     min-height: 100vh;
+    background-color: #ffffff;
     z-index: 100;
+    height: 100%;
+    transition: 200ms left;
+    overflow: auto;
     padding: 15px;
+    padding-bottom: 50px;
+    // // display: none;
+    // // min-height: 100vh;
+    // padding: 15px;
 
     .header {
-        $header-height: 50px;
+        $header-height: 40px;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -75,7 +81,7 @@
 
             >img {
                 height: inherit;
-                padding: 15px;
+                padding: 10px;
                 @include anim.press();
             }
         }
@@ -83,30 +89,75 @@
 
     >.content {
         margin-top: 10px;
+
         .imagePreview {
             width: 100%;
             // min-height: 200px;
             // background-color: lime;
-            border-radius: 7px;
+            border-radius: 8px;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+
             >img {
                 display: block;
                 max-width: 100%;
                 margin: auto;
+                width: 100%;
                 border-radius: inherit;
                 object-fit: cover;
                 // min-height: 10vh;
+                max-height: 70vh;
             }
         }
-        >.imageTitle{
+
+        >.imageTitle {
             margin-top: .8em;
-            font-weight: 500;
-            color: #444;
+            // font-weight: 600;
+            color: $text-color;
+            // outline: 1px solid red;
         }
 
+        >.by {
+            font-size: 0.8em;
+            text-decoration: underline;
+            color: $text-color;
+            font-weight: 500;
+            // outline: 1px solid red;
+            // color: dodgerblue;
+        }
+
+        >.downloadOptions {
+            margin-top: 40px;
+            font-weight: 600;
+        }
+
+        >.downloadButtons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 20px;
+
+            // background-color: lavender;
+            >a {
+                background-color: #111;
+                border-radius: 0.7em;
+                // border-radius: 100vmax;
+                padding: 0.9em 2.7em;
+                text-decoration: none;
+                color: #fff;
+                font-size: 0.7em;
+                text-transform: capitalize;
+                font-weight: 500;
+                letter-spacing: 0.05em;
+                @include anim.press();
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
     }
 }
 
@@ -143,9 +194,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 7px;
+        border-radius: 8px;
         overflow: hidden;
-        @include anim.press(150,95);
+        @include anim.press(150, 95);
+
         img {
             max-height: 50vh;
             object-fit: cover;
