@@ -4,22 +4,25 @@
 
 $border-radius : 8px;
 $text-color : #222;
+$max-width: 800px;
 
 #main {
     margin-inline: auto;
     padding-inline: 15px;
-    max-width: 800px;
+    max-width: $max-width;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
     padding-bottom: 25px;
 
-    >div>.heading {
-        margin-top: 20px;
-        font-size: 1.5em;
-        color: #333;
-        padding-left: 5px;
+    >div.headerContainer {
+        >.heading {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+            padding-left: 5px;
+        }
     }
 
     >div>#searchBar {
@@ -56,119 +59,127 @@ $text-color : #222;
     transition: 200ms left;
     overflow: auto;
     padding: 15px;
-    // // display: none;
-    // // min-height: 100vh;
-    // padding: 15px;
 
-    .header {
-        $header-height: 40px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: stretch;
-        height: $header-height;
+    .container {
+        max-width: $max-width;
+        margin-inline: auto;
 
-
-        .left,
-        .right {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: inherit;
-            aspect-ratio: 1 / 1;
-        }
-
-        .center {
-            flex-grow: 1;
+        .header {
+            $header-height: 40px;
+            width: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: stretch;
+            height: $header-height;
 
-            p {
-                font-weight: 500;
-            }
-        }
 
-        .left {
-            height: inherit;
-
-            >img {
+            .left,
+            .right {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 height: inherit;
-                padding: 10px;
-                @include anim.press();
+                aspect-ratio: 1 / 1;
+            }
+
+            .center {
+                flex-grow: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                p {
+                    font-weight: 500;
+                }
+            }
+
+            .left {
+                height: inherit;
+                cursor: pointer;
+                border-radius: 50%;
+
+                &:active {
+                    background-color: #00000011;
+                }
+
+                >img {
+                    height: inherit;
+                    padding: 10px;
+                    @include anim.press();
+                }
             }
         }
-    }
 
-    >.content {
-        margin-top: 10px;
+        >.content {
+            margin-top: 10px;
 
-        .imagePreview {
-            width: 100%;
-            // min-height: 200px;
-            // background-color: lime;
-            border-radius: $border-radius;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            >img {
-                display: block;
-                max-width: 100%;
-                margin: auto;
+            .imagePreview {
                 width: 100%;
-                border-radius: inherit;
-                object-fit: cover;
-                // min-height: 10vh;
-                max-height: 70vh;
+                // min-height: 200px;
+                // background-color: lime;
+                border-radius: $border-radius;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                >img {
+                    display: block;
+                    max-width: 100%;
+                    margin: auto;
+                    width: 100%;
+                    border-radius: inherit;
+                    object-fit: cover;
+                    // min-height: 10vh;
+                    max-height: 70vh;
+                }
             }
-        }
 
-        >.imageTitle {
-            margin-top: .8em;
-            // font-weight: 600;
-            color: $text-color;
-            // outline: 1px solid red;
-        }
+            >.imageTitle {
+                margin-top: .8em;
+                // font-weight: 600;
+                color: $text-color;
+                // outline: 1px solid red;
+            }
 
-        >.by {
-            font-size: 0.8em;
-            text-decoration: underline;
-            color: $text-color;
-            font-weight: 500;
-            // outline: 1px solid red;
-            // color: dodgerblue;
-        }
-
-        >.downloadOptions {
-            margin-top: 40px;
-            font-weight: 600;
-        }
-
-        >.downloadButtons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            width: 100%;
-            margin-top: 20px;
-
-            // background-color: lavender;
-            >a {
-                background-color: #111;
-                border-radius: 0.9em;
-                // border-radius: 100vmax;
-                padding: 0.9em 2.9em;
-                text-decoration: none;
-                color: #fff;
-                font-size: 0.7em;
-                text-transform: capitalize;
+            >.by {
+                font-size: 0.8em;
+                text-decoration: underline;
+                color: $text-color;
                 font-weight: 500;
-                letter-spacing: 0.05em;
-                @include anim.press();
-                -webkit-tap-highlight-color: transparent;
+                // outline: 1px solid red;
+                // color: dodgerblue;
+            }
+
+            >.downloadOptions {
+                margin-top: 40px;
+                font-weight: 600;
+            }
+
+            >.downloadButtons {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+                width: 100%;
+                margin-top: 20px;
+
+                // background-color: lavender;
+                >a {
+                    background-color: #111;
+                    border-radius: 0.9em;
+                    // border-radius: 100vmax;
+                    padding: 0.9em 2.9em;
+                    text-decoration: none;
+                    color: #fff;
+                    font-size: 0.7em;
+                    text-transform: capitalize;
+                    font-weight: 500;
+                    letter-spacing: 0.05em;
+                    @include anim.press();
+                    -webkit-tap-highlight-color: transparent;
+                }
             }
         }
     }
@@ -208,6 +219,7 @@ $text-color : #222;
             min-height: 100px;
             width: calc(50% - 10px);
             background-color: #eee;
+            cursor: pointer;
             // padding: 20px;
             display: flex;
             justify-content: center;

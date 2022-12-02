@@ -34,7 +34,7 @@ export default function Home() {
     }
     return (
         <div id="main">
-            <div>
+            <div className='headerContainer'>
                 <h1 className='heading'>Search Image</h1>
                 <div id="searchBar" onKeyPress={ handelKeyPress } onChange={ detectEmptyInput }>
                     <input type="search" id="searchInput" placeholder='Search any Image or Photograph' ref={ searchInputDOM } autoFocus />
@@ -42,30 +42,33 @@ export default function Home() {
                 </div>
             </div>
             <div id="downloadScreen" ref={ downloadScreen }>
-                <div className="header">
-                    <div className="left" onClick={ hideDownloadScreen }><img src={ arrowBack } alt="arrow_back" /></div>
-                    <div className="center"><p>Download Image</p></div>
-                    <div className="right"></div>
-                </div>
-                <div className="content">
-                    <div className="imagePreview">
-                        <img src={ currentImageData.src } alt={ currentImageData.title } />
+                <div className="container">
+
+                    <div className="header">
+                        <div className="left" onClick={ hideDownloadScreen }><img src={ arrowBack } alt="arrow_back" /></div>
+                        <div className="center"><p>Download Image</p></div>
+                        <div className="right"></div>
                     </div>
-                    <h3 className='imageTitle'>{ currentImageData.title }</h3>
-                    <a className="by" href={ currentImageData.photographer_url } target="_blank">By { currentImageData.photographer }</a>
-                    <h4 className='downloadOptions text-center'>Download Options</h4>
-                    <div className="downloadButtons">
-                        {/* <p>{ currentImageData.medium }</p> */ }
-                        <a href={ currentImageData.original } target="_blank">original</a>
-                        <a href={ currentImageData.large2x } target="_blank">large2x</a>
-                        <a href={ currentImageData.large } target="_blank">large</a>
-                        <a href={ currentImageData.medium } target="_blank">medium</a>
-                        <a href={ currentImageData.small } target="_blank">small</a>
-                        <a href={ currentImageData.portrait } target="_blank">portrait</a>
-                        <a href={ currentImageData.landscape } target="_blank">landscape</a>
-                        <a href={ currentImageData.tiny } target="_blank">tiny</a>
+                    <div className="content">
+                        <div className="imagePreview">
+                            <img src={ currentImageData.src } alt={ currentImageData.title } />
+                        </div>
+                        <h3 className='imageTitle'>{ currentImageData.title }</h3>
+                        <a className="by" href={ currentImageData.photographer_url } target="_blank">By { currentImageData.photographer }</a>
+                        <h4 className='downloadOptions text-center'>Download Options</h4>
+                        <div className="downloadButtons">
+                            {/* <p>{ currentImageData.medium }</p> */ }
+                            <a href={ currentImageData.original } target="_blank">original</a>
+                            <a href={ currentImageData.large2x } target="_blank">large2x</a>
+                            <a href={ currentImageData.large } target="_blank">large</a>
+                            <a href={ currentImageData.medium } target="_blank">medium</a>
+                            <a href={ currentImageData.small } target="_blank">small</a>
+                            <a href={ currentImageData.portrait } target="_blank">portrait</a>
+                            <a href={ currentImageData.landscape } target="_blank">landscape</a>
+                            <a href={ currentImageData.tiny } target="_blank">tiny</a>
+                        </div>
+                        <End />
                     </div>
-                    <End/>
                 </div>
             </div>
             <div id="searchResults">
@@ -88,7 +91,7 @@ export default function Home() {
         else
             if (!nextPageLink)
                 return
-            else if(!loadingState)
+            else if (!loadingState)
                 return (
                     <div id='loadMore'>
                         <button onClick={ () => {
