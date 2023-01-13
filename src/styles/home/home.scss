@@ -2,9 +2,10 @@
 @use '../common/animation' as anim;
 @use '../common/typo';
 
-$border-radius : 8px;
+$border-radius : 10px;
 $text-color : #222;
 $max-width: 800px;
+
 
 #main {
     margin-inline: auto;
