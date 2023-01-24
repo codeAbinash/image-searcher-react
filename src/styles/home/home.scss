@@ -49,7 +49,7 @@ $max-width: 800px;
             outline: none;
             padding: 1.2em 0.4em 1.2em 2.9em;
             font-weight: 500;
-            background-image: url('icons/search.svg');
+            background-image: url('/icons/search.svg');
             background-repeat: no-repeat;
             background-position: 1.1em center;
             background-size: 1.1em;
@@ -60,7 +60,7 @@ $max-width: 800px;
                 background-size: 1.5em;
                 opacity: 0.9;
                 // outline: 1px solid red;
-                background-image: url('icons/cross.svg');
+                background-image: url('/icons/cross.svg');
                 background-repeat: no-repeat;
                 background-position: center;
             }
