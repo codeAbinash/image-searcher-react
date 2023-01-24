@@ -55,7 +55,7 @@
     ],
     "shortcuts": [
         {
-            "name": "This is Shortcut 1",
+            "name": "Landscape",
             "short_name": "Landscape",
             "description": "Detailed Description Shortcut 1",
             "url": "./shortcut1.html",
@@ -67,7 +67,7 @@
             ]
         },
         {
-            "name": "This is Shortcut 2",
+            "name": "Nature",
             "short_name": "Nature",
             "description": "Detailed Description Shortcut 2",
             "url": "./shortcut2.html",
@@ -79,7 +79,7 @@
             ]
         },
         {
-            "name": "This is Shortcut 3",
+            "name": "Flowers",
             "short_name": "Flowers",
             "description": "Detailed Description Shortcut 3",
             "url": "./shortcut3.html",
