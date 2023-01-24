@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 async function registerSW() {
   if ('serviceWorker' in navigator) {
     try {
-      const registration = navigator.serviceWorker.register('./src/sw.js')
+      const registration = navigator.serviceWorker.register('sw.js')
       console.log('Service Worker Registered')
     } catch (error) {
       console.warn("Error Registering Service Worker")

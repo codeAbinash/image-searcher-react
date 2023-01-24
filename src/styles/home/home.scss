@@ -17,6 +17,12 @@ $max-width: 800px;
     min-height: 100vh;
     padding-bottom: 25px;
 
+    .powered-by-heading {
+        font-size: 0.8em;
+        margin-left: 5px;
+        color: gray;
+    }
+
     >div.headerContainer {
         >.heading {
             margin-top: 20px;
@@ -41,8 +47,23 @@ $max-width: 800px;
             // color: whi;
             border: none;
             outline: none;
-            padding: 1.2em 1.3em;
+            padding: 1.2em 0.4em 1.2em 2.9em;
             font-weight: 500;
+            background-image: url('icons/search.svg');
+            background-repeat: no-repeat;
+            background-position: 1.1em center;
+            background-size: 1.1em;
+            &::-webkit-search-cancel-button{  
+                -webkit-appearance: none;
+                height: 2em;
+                width: 2em;
+                background-size: 1.5em;
+                opacity: 0.9;
+                // outline: 1px solid red;
+                background-image: url('icons/cross.svg');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
         }
     }
 }
@@ -99,6 +120,7 @@ $max-width: 800px;
                 cursor: pointer;
                 border-radius: 50%;
                 -webkit-tap-highlight-color: transparent;
+
                 &:active {
                     background-color: #00000011;
                 }
@@ -169,7 +191,7 @@ $max-width: 800px;
                 // background-color: lavender;
                 >a {
                     background-color: #111;
-                    border-radius: 0.9em;
+                    border-radius: 0.6em;
                     // border-radius: 100vmax;
                     padding: 0.9em 2.9em;
                     text-decoration: none;
@@ -194,11 +216,18 @@ $max-width: 800px;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+        gap: 1em;
+
+        .noSearch-img {
+            width: 80%;
+        }
 
         p {
             // font-size: 1.2em;
             // opacity: 0.7;
             color: #888;
+            font-size: 0.9em;
             font-weight: 500;
         }
     }
@@ -296,7 +325,7 @@ $max-width: 800px;
 
     p {
         font-size: 0.8em;
-        color: #888;
+        color: #666;
         font-weight: 500;
 
         a {

@@ -35,10 +35,10 @@ export default function Home() {
     return (
         <div id="main">
             <div className='headerContainer'>
-                <h1 className='heading'>Search Image</h1>
+                <h1 className='heading'>Search Images</h1>
+                <span className='powered-by-heading'>Powered by Pexels</span>
                 <div id="searchBar" onKeyPress={ handelKeyPress } onChange={ detectEmptyInput }>
                     <input type="search" id="searchInput" placeholder='Search any Image or Photograph' ref={ searchInputDOM } autoFocus />
-                    {/* <p>Search</p> */ }
                 </div>
             </div>
             <div id="downloadScreen" ref={ downloadScreen }>
@@ -128,6 +128,7 @@ export default function Home() {
             </div>
         if (photos.length == 0)
             return <div className="noResult">
+                <img src="images/illustrations/undraw_house_searching_re_stk8.svg" className='noSearch-img' />
                 <p>Search any Image or Photograph</p>
             </div>
         else
