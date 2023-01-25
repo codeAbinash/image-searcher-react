@@ -38,7 +38,7 @@ export default function Home() {
                 <h1 className='heading'>Search Images</h1>
                 <span className='powered-by-heading'>Powered by Pexels</span>
                 <div id="searchBar" onKeyPress={ handelKeyPress } onChange={ detectEmptyInput }>
-                    <input type="search" id="searchInput" placeholder='Search any Image or Photograph' ref={ searchInputDOM } autoFocus />
+                    <input type="search" id="searchInput" placeholder='Search stock Images or Photographs' ref={ searchInputDOM } autoFocus />
                 </div>
             </div>
             <div id="downloadScreen" ref={ downloadScreen }>
